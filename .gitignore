@@ -1,0 +1,17 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Maven build output
+target/
+
+# TestNG / automation reports
+test-output/
+
+# Existing IntelliJ ignored files
+/shelf/
+/workspace.xml
+/queries/
+/dataSources/
+/dataSources.local.xml
+/httpRequests/
