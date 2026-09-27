@@ -28,8 +28,20 @@ jobs:
           java-version: '17'
           cache: maven
 
-      - name: Show checked out folders
-        run: ls -la
+      - name: Start banking application
+        working-directory: banking-app
+        run: docker compose up -d --build
 
-      - name: Run existing API tests
+      - name: Show running containers
+        run: docker ps
+
+      - name: Wait for services to start
+        run: sleep 60
+
+      - name: Run API tests
         run: mvn clean test
+
+      - name: Stop banking application
+        if: always()
+        working-directory: banking-app
+        run: docker compose down -v
