@@ -1,0 +1,3 @@
+scenario,username,password,phoneNumber,email,expectedStatus
+Valid Account Creation,johnqa,Hsr@1234,9876543210,johnqa@gmail.com,201
+Invalid Email,johnqa,Hsr@1234,9876543210,john,400

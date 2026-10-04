@@ -43,13 +43,18 @@ public class ApiClient {
         return response;
     }
 
-    public Response post(String endpoint, Object requestBody){
+    public Response post(String endpoint, Object requestBody) {
 
-        return given()
+        Response response = given()
+                .log().all()
                 .spec(RequestSpecificationManager.getRequestSpecification())
                 .body(requestBody)
-        .when()
+                .when()
                 .post(endpoint);
 
+        response.then()
+                .log().all();
+
+        return response;
     }
 }
