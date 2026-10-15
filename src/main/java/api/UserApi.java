@@ -9,26 +9,24 @@ public class UserApi {
 
     private final ApiClient apiClient;
 
-    public UserApi(){
-
-        apiClient = new ApiClient();
+    public UserApi() {
+        this.apiClient = new ApiClient();
     }
 
-    public Response getUserById(int id){
-
-        return apiClient.get(
+    // GET user by ID using a path parameter
+    public Response getUserById(int id) {
+        return apiClient.getByQueryParam(
                 UserEndpoints.USER_BY_ID,
                 "id",
                 id
         );
     }
 
-    public Response addUser(UserRequest request){
-
+    // POST request to create a user
+    public Response addUser(UserRequest request) {
         return apiClient.post(
                 UserEndpoints.USERS,
                 request
         );
     }
-
 }

@@ -29,8 +29,11 @@ public class LoginTest {
 
         Assert.assertEquals("2FA_REQUIRED", loginResponse.getStatus());
 
-        Assert.assertEquals(180, loginResponse.getExpires_in_seconds());
+        Assert.assertEquals(180, loginResponse.getExpiresInSeconds());
 
-        String token = loginResponse.getPre_auth_token();
+        String token = loginResponse.getPreAuthToken();
+
+        Assert.assertNotNull(token, "Pre-auth token should not be null");
+        Assert.assertFalse(token.isEmpty(), "Pre-auth token should not be empty");
     }
 }
