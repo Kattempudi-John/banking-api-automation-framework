@@ -12,12 +12,14 @@ pipeline {
         }
 
         stage('Check Java and Maven') {
-            steps {
-                bat 'where java'
-                bat 'java -version'
-                bat 'where mvn'
-                bat 'mvn -version'
-            }
-        }
+                    steps {
+                        bat 'echo PATH=%PATH%'
+                        bat 'echo JAVA_HOME=%JAVA_HOME%'
+                        bat 'echo MAVEN_HOME=%MAVEN_HOME%'
+                        bat 'dir C:\\Windows\\System32\\where.exe'
+                        bat 'java -version'
+                        bat 'mvn -version'
+                    }
+                }
     }
 }
