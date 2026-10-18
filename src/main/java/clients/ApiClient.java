@@ -9,52 +9,79 @@ import static io.restassured.RestAssured.given;
 
 public class ApiClient {
 
-    public Response get(
+    public Response getByQueryParam(
             String endpoint,
             String paramName,
             Object paramValue) {
 
-        String requestUri =
-                ConfigReader.get("base.url")
-                        + ConfigReader.get("base.path")
-                        + endpoint.replace(
-                        "{" + paramName + "}",
-                        String.valueOf(paramValue)
-                );
-
-        ApiLogger.logRequest(
-                "GET",
-                requestUri
-        );
-
         Response response = given()
                 .spec(RequestSpecificationManager.getRequestSpecification())
-                .pathParam(paramName, paramValue)
-
-        .when()
+                .queryParam(paramName, paramValue)
+                .log().all()
+                .when()
                 .get(endpoint)
-
-        .then()
+                .then()
                 .extract()
                 .response();
 
         ApiLogger.logResponse(response);
-
         return response;
     }
 
     public Response post(String endpoint, Object requestBody) {
 
         Response response = given()
-                .log().all()
                 .spec(RequestSpecificationManager.getRequestSpecification())
                 .body(requestBody)
+                .log().all()
                 .when()
-                .post(endpoint);
+                .post(endpoint)
+                .then()
+                .extract()
+                .response();
 
-        response.then()
-                .log().all();
+        ApiLogger.logResponse(response);
+        return response;
+    }
 
+    public Response postWithToken(
+            String endpoint,
+            Object requestBody,
+            String accessToken) {
+
+        Response response = given()
+                .spec(RequestSpecificationManager.getRequestSpecification())
+                .header("Authorization", "Bearer " + accessToken)
+                .body(requestBody)
+                .log().all()
+                .when()
+                .post(endpoint)
+                .then()
+                .extract()
+                .response();
+
+        ApiLogger.logResponse(response);
+        return response;
+    }
+
+    public Response putWithToken(
+            String endpoint,
+            Object requestBody,
+            String accessToken) {
+
+        Response response = given()
+                .spec(RequestSpecificationManager.getRequestSpecification(
+                        ConfigReader.get("profile.base.url")))
+                .header("Authorization", "Bearer " + accessToken)
+                .body(requestBody)
+                .log().all()
+                .when()
+                .put(endpoint)
+                .then()
+                .extract()
+                .response();
+
+        ApiLogger.logResponse(response);
         return response;
     }
 }
