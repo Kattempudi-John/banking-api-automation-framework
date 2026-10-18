@@ -10,5 +10,14 @@ pipeline {
                 bat 'dir'
             }
         }
+
+        stage('Check Java and Maven') {
+            steps {
+                bat 'where java'
+                bat 'java -version'
+                bat 'where mvn'
+                bat 'mvn -version'
+            }
+        }
     }
 }
