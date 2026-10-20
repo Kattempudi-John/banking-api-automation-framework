@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 public class CreateAccountTest {
 
     @Test(
+            groups = {"regression"},
             dataProvider = "createAccount",
             dataProviderClass = UserAccountDataProvider.class
     )

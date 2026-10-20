@@ -31,7 +31,7 @@ pipeline {
 
         stage('Verify Docker from Jenkins') {
             steps {
-                bat 'echo Checking Docker access from Jenkins'
+                bat 'echo Verifying Docker access from Jenkins'
                 bat 'whoami'
                 bat 'where.exe docker'
                 bat 'docker --version'

@@ -13,6 +13,7 @@ import org.testng.annotations.Test;
 public class LoginTest {
 
     @Test(
+            groups = {"smoke", "regression"},
             dataProvider = "loginDetails",
             dataProviderClass = UserLoginDataProvider.class
     )

@@ -14,7 +14,8 @@ import utilities.KycDeatilsTestDataGenarator;
 public class CompletedUserFlowTest {
 
     @Test(
-            dataProvider = "createAccount",
+            groups = {"smoke", "regression"},
+            dataProvider = "validAccount",
             dataProviderClass = UserAccountDataProvider.class
     )
     public void verifyCompleteUserFlow(CreateAccountTestData testData) {

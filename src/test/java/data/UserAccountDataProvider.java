@@ -7,25 +7,28 @@ import utilities.CreateAccountTestDataGenerator;
 
 public class UserAccountDataProvider {
 
-    @DataProvider(name = "createAccount")
-    public Object[][] accountDetails(){
 
-        CreateAccountRequest request =
+    // Regression: positive and negative scenarios
+    @DataProvider(name = "createAccount")
+    public static Object[][] accountDetails() {
+
+        CreateAccountRequest validRequest =
                 CreateAccountTestDataGenerator.createAccount();
 
         CreateAccountRequest invalidRequest =
-                CreateAccountTestDataGenerator.createAccountWithInvalidEmail();
+                CreateAccountTestDataGenerator
+                        .createAccountWithInvalidEmail();
 
         return new Object[][]{
                 {
-                    new CreateAccountTestData(
-                            "Valid Account Creation",
-                            request,
-                            201,
-                            "SUCCESS",
-                            "Account created successfully",
-                            null
-                    )
+                        new CreateAccountTestData(
+                                "Valid Account Creation",
+                                validRequest,
+                                201,
+                                "SUCCESS",
+                                "Account created successfully",
+                                null
+                        )
                 },
                 {
                         new CreateAccountTestData(
@@ -35,11 +38,29 @@ public class UserAccountDataProvider {
                                 null,
                                 null,
                                 "Please enter a valid email address"
-
                         )
-                },
+                }
+        };
+    }
 
+    // Smoke: only valid account creation
+    @DataProvider(name = "validAccount")
+    public static Object[][] validAccountDetails() {
 
+        CreateAccountRequest validRequest =
+                CreateAccountTestDataGenerator.createAccount();
+
+        return new Object[][]{
+                {
+                        new CreateAccountTestData(
+                                "Valid Account Complete User Flow",
+                                validRequest,
+                                201,
+                                "SUCCESS",
+                                "Account created successfully",
+                                null
+                        )
+                }
         };
     }
 }
