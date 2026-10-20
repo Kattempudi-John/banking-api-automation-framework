@@ -29,31 +29,33 @@ pipeline {
             }
         }
 
+
         stage('Verify Docker from Jenkins') {
             steps {
                 withEnv([
                     'PATH+SYSTEM32=C:\\Windows\\System32',
-                    'PATH+DOCKER=C:\\Users\\katte\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin'
+                    'PATH+DOCKER=C:\\Users\\katte\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin',
+                    'DOCKER_HOST=npipe:////./pipe/dockerDesktopLinuxEngine'
                 ]) {
-                    bat 'echo Verifying Jenkins Windows account'
+                    bat 'echo ===== Jenkins Account ====='
                     bat 'C:\\Windows\\System32\\whoami.exe'
 
-                    bat 'echo Checking Docker executable'
+                    bat 'echo ===== Docker CLI ====='
                     bat 'where.exe docker'
-
-                    bat 'echo Checking Docker version'
                     bat 'docker --version'
 
-                    bat 'echo Checking Docker Compose'
-                    bat 'docker compose version'
+                    bat 'echo ===== Docker Compose ====='
+                    bat 'where.exe docker-compose'
+                    bat 'docker-compose.exe version'
 
-                    bat 'echo Checking Docker engine'
+                    bat 'echo ===== Docker Engine ====='
                     bat 'docker info'
 
-                    bat 'echo Checking running containers'
+                    bat 'echo ===== Running Containers ====='
                     bat 'docker ps'
                 }
             }
         }
+
     }
 }
