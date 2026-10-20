@@ -31,13 +31,24 @@ pipeline {
 
         stage('Verify Docker from Jenkins') {
             steps {
-                bat 'echo Verifying Docker access from Jenkins'
-                bat 'whoami'
-                bat 'where.exe docker'
-                bat 'docker --version'
-                bat 'docker compose version'
-                bat 'docker info'
-                bat 'docker ps'
+                withEnv([
+                    'PATH+SYSTEM32=C:\\Windows\\System32',
+                    'PATH+DOCKER=C:\\Program Files\\Docker\\Docker\\resources\\bin'
+                ]) {
+                    bat 'echo Verifying Docker access from Jenkins'
+
+                    bat 'C:\\Windows\\System32\\whoami.exe'
+
+                    bat 'where.exe docker'
+
+                    bat 'docker --version'
+
+                    bat 'docker compose version'
+
+                    bat 'docker info'
+
+                    bat 'docker ps'
+                }
             }
         }
     }
