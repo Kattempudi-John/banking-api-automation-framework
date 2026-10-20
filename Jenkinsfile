@@ -33,20 +33,24 @@ pipeline {
             steps {
                 withEnv([
                     'PATH+SYSTEM32=C:\\Windows\\System32',
-                    'PATH+DOCKER=C:\\Program Files\\Docker\\Docker\\resources\\bin'
+                    'PATH+DOCKER=C:\\Users\\katte\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin'
                 ]) {
-                    bat 'echo Verifying Docker access from Jenkins'
-
+                    bat 'echo Verifying Jenkins Windows account'
                     bat 'C:\\Windows\\System32\\whoami.exe'
 
+                    bat 'echo Checking Docker executable'
                     bat 'where.exe docker'
 
+                    bat 'echo Checking Docker version'
                     bat 'docker --version'
 
+                    bat 'echo Checking Docker Compose'
                     bat 'docker compose version'
 
+                    bat 'echo Checking Docker engine'
                     bat 'docker info'
 
+                    bat 'echo Checking running containers'
                     bat 'docker ps'
                 }
             }
