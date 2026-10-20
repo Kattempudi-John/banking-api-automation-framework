@@ -14,30 +14,22 @@ public class CreateAccountTest {
             dataProvider = "createAccount",
             dataProviderClass = UserAccountDataProvider.class
     )
-    public void verifyAccountCreation(CreateAccountTestData testData){
+    public void verifyAccountCreation(CreateAccountTestData testData) {
 
         CreateAccountApi createAccountApi = new CreateAccountApi();
 
         Response response = createAccountApi.addUser(testData.getRequest());
 
-//        response.then()
-//                .spec(ResponseSpecificationManager.createSuccessResponse());
-
         Assert.assertEquals(
                 response.getStatusCode(),
                 testData.getExpectedStatus(),
-                "Status code mismatch for: " + testData.getScenarioName());
-
-        Assert.assertEquals(
-                response.getStatusCode(),
-                testData.getExpectedStatus(),
-                "Status code mismatch for: " + testData.getScenarioName());
+                "Status code mismatch for: " + testData.getScenarioName()
+        );
 
         CreateAccountResponse accountResponse =
                 response.as(CreateAccountResponse.class);
 
-        if(testData.getBusinessStatus() != null){
-
+        if (testData.getBusinessStatus() != null) {
             Assert.assertEquals(
                     accountResponse.getStatus(),
                     testData.getBusinessStatus(),
@@ -45,23 +37,20 @@ public class CreateAccountTest {
             );
         }
 
-        if(testData.getExpectedMessage() != null){
-
+        if (testData.getExpectedMessage() != null) {
             Assert.assertEquals(
                     accountResponse.getMessage(),
                     testData.getExpectedMessage(),
-            "Message mismatch for: " + testData.getScenarioName()
+                    "Message mismatch for: " + testData.getScenarioName()
             );
         }
 
-        if(testData.getExpectedError() != null){
-
+        if (testData.getExpectedError() != null) {
             Assert.assertEquals(
-                    accountResponse.getStatus(),
-                    testData.getBusinessStatus(),
-                    "Business status mismatch for: " + testData.getScenarioName()
+                    accountResponse.getError(),
+                    testData.getExpectedError(),
+                    "Error message mismatch for: " + testData.getScenarioName()
             );
         }
-
     }
 }

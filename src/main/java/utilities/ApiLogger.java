@@ -23,8 +23,9 @@ public class ApiLogger {
 
         System.out.println(message);
 
-        ExtentReportManager.getTest()
-                .info(message);
+        if (ExtentReportManager.getTest() != null) {
+            ExtentReportManager.getTest().info(message);
+        }
     }
 
     public static void logResponse(Response response) {
@@ -34,12 +35,13 @@ public class ApiLogger {
                         "Status Code: " + response.statusCode() + "\n" +
                         "Response Time: " + response.time() + " ms\n" +
                         "Body:\n" +
-                        response.asPrettyString() +
+                        "[Response body omitted to protect authentication tokens]" +
                         "\n==============================";
 
         System.out.println(message);
 
-        ExtentReportManager.getTest()
-                .info(message);
+        if (ExtentReportManager.getTest() != null) {
+            ExtentReportManager.getTest().info(message);
+        }
     }
 }

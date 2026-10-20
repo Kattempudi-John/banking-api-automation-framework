@@ -17,7 +17,7 @@ public class ApiClient {
         Response response = given()
                 .spec(RequestSpecificationManager.getRequestSpecification())
                 .queryParam(paramName, paramValue)
-                .log().all()
+                
                 .when()
                 .get(endpoint)
                 .then()
@@ -33,7 +33,7 @@ public class ApiClient {
         Response response = given()
                 .spec(RequestSpecificationManager.getRequestSpecification())
                 .body(requestBody)
-                .log().all()
+                
                 .when()
                 .post(endpoint)
                 .then()
@@ -53,7 +53,7 @@ public class ApiClient {
                 .spec(RequestSpecificationManager.getRequestSpecification())
                 .header("Authorization", "Bearer " + accessToken)
                 .body(requestBody)
-                .log().all()
+                
                 .when()
                 .post(endpoint)
                 .then()
@@ -74,7 +74,7 @@ public class ApiClient {
                         ConfigReader.get("profile.base.url")))
                 .header("Authorization", "Bearer " + accessToken)
                 .body(requestBody)
-                .log().all()
+                
                 .when()
                 .put(endpoint)
                 .then()

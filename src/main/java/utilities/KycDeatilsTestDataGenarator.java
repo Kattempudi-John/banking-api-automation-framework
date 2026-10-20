@@ -63,7 +63,9 @@ public class KycDeatilsTestDataGenarator {
 
     public static UserKycRequest updateKycDetails(){
         String fullname = getRandomFullName();
-        Date date = getRandomDateOfBirth();
+        java.time.LocalDate date = getRandomDateOfBirth().toInstant()
+                .atZone(java.time.ZoneId.systemDefault())
+                .toLocalDate();
         String phonenumber = getRandomPhoneNumber();
         String address = getRandomAddress();
         String streetName = getRandomLayout();
